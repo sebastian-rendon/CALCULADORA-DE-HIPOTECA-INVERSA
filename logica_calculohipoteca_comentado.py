@@ -1,3 +1,10 @@
+class Error_edad(Exception):
+    "se usa cuando la edad es menor a la edad minima para solicitar la hipoteca inversa"
+class Eror_porcentaje(Exception):
+    "la edad mínima para solicitar hipoteca inversa es de 65 años."
+
+class Error_tasa_negativa(Exception):
+    "Error: la tasa de interés debe ser mayor a 0."
 
 def calcular_credito(valor_inmueble, tasa_anual, plazo_anios, porcentaje_financiado, edad):
     """
@@ -9,15 +16,15 @@ def calcular_credito(valor_inmueble, tasa_anual, plazo_anios, porcentaje_financi
 
     # VALIDACIONES: Se verifican las condiciones mínimas para que el crédito sea válido.
     if edad < 65:
-        return "Error: la edad mínima para solicitar hipoteca inversa es de 65 años."
+        raise Error_edad ("Error: la edad mínima para solicitar hipoteca inversa es de 65 años.")
     
     # Se valida que el porcentaje financiado esté dentro del rango permitido (0% a 100%).
     if porcentaje_financiado < 0 or porcentaje_financiado > 100:
-        return "Error: el porcentaje financiado debe ser entre 0 y 100."
+        raise Eror_porcentaje ("Error: el porcentaje financiado debe ser entre 0 y 100.")
     
     # Se valida que la tasa de interés sea positiva.
     if tasa_anual <= 0:
-        return "Error: la tasa de interés debe ser mayor a 0."
+        raise Error_tasa_negativa ("Error: la tasa de interés debe ser mayor a 0.")
 
 
     # CONVERSIÓN A DECIMALES: Se transforman porcentajes a formato decimal para operar matemáticamente.

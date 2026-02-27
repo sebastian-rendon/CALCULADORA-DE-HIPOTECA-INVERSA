@@ -1,6 +1,6 @@
 
 import unittest
-import logica_calculohipoteca
+import logica_calculohipoteca_comentado
 
 
 class TestCalculadoraHipoteca(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestCalculadoraHipoteca(unittest.TestCase):
 
     def test_normal_1(self):
         # Verifica cálculo con valores típicos de crédito.
-        cuota, total, saldo = logica_calculohipoteca.calcular_credito(
+        cuota, total, saldo = logica_calculohipoteca_comentado.calcular_credito(
             300_000_000, 8, 20, 40, 70
         )
 
@@ -23,7 +23,7 @@ class TestCalculadoraHipoteca(unittest.TestCase):
 
     def test_normal_2(self):
         # Segundo escenario estándar para validar consistencia en resultados.
-        cuota, total, saldo = logica_calculohipoteca.calcular_credito(
+        cuota, total, saldo = logica_calculohipoteca_comentado.calcular_credito(
             450_000_000, 7, 25, 35, 75
         )
 
@@ -36,7 +36,7 @@ class TestCalculadoraHipoteca(unittest.TestCase):
 
     def test_vivienda_muy_costosa(self):
         # Prueba con inmueble de alto valor.
-        cuota, total, saldo = logica_calculohipoteca.calcular_credito(
+        cuota, total, saldo = logica_calculohipoteca_comentado.calcular_credito(
             900_000_000, 7.55, 15, 30, 80
         )
 
@@ -46,7 +46,7 @@ class TestCalculadoraHipoteca(unittest.TestCase):
 
     def test_plazo_muy_largo(self):
         # Evalúa comportamiento con plazo extendido.
-        cuota, total, saldo = logica_calculohipoteca.calcular_credito(
+        cuota, total, saldo = logica_calculohipoteca_comentado.calcular_credito(
             350_000_000, 8, 30, 45, 72
         )
 
@@ -56,7 +56,7 @@ class TestCalculadoraHipoteca(unittest.TestCase):
 
     def test_financiacion_alta(self):
         # Prueba con porcentaje financiado elevado.
-        cuota, total, saldo = logica_calculohipoteca.calcular_credito(
+        cuota, total, saldo = logica_calculohipoteca_comentado.calcular_credito(
             250_000_000, 9, 20, 70, 68
         )
 
@@ -66,7 +66,7 @@ class TestCalculadoraHipoteca(unittest.TestCase):
 
     def test_interes_muy_bajo(self):
         # Evalúa escenario con tasa reducida.
-        cuota, total, saldo = logica_calculohipoteca.calcular_credito(
+        cuota, total, saldo = logica_calculohipoteca_comentado.calcular_credito(
             400_000_000, 5, 20, 40, 78
         )
 
@@ -76,7 +76,7 @@ class TestCalculadoraHipoteca(unittest.TestCase):
 
     def test_persona_muy_mayor(self):
         # Caso con edad avanzada y plazo corto.
-        cuota, total, saldo = logica_calculohipoteca.calcular_credito(
+        cuota, total, saldo = logica_calculohipoteca_comentado.calcular_credito(
             280_000_000, 8, 10, 50, 85
         )
 
@@ -86,7 +86,7 @@ class TestCalculadoraHipoteca(unittest.TestCase):
 
     def test_vivienda_economica(self):
         # Prueba con inmueble de bajo valor.
-        cuota, total, saldo = logica_calculohipoteca.calcular_credito(
+        cuota, total, saldo = logica_calculohipoteca_comentado.calcular_credito(
             150_000_000, 9, 25, 60, 70
         )
 
@@ -99,48 +99,39 @@ class TestCalculadoraHipoteca(unittest.TestCase):
 
     def test_error_edad(self):
         # Debe retornar error si la edad es menor a 65.
-        resultado = logica_calculohipoteca.calcular_credito(
-            300_000_000, 8, 20, 40, 50
-        )
+        with self.assertRaises(logica_calculohipoteca_comentado.Error_edad):
+            logica_calculohipoteca_comentado.calcular_credito(
+            300_000_000, 8, 20, 40, 50)
+        
 
-        self.assertEqual(
-            resultado,
-            "Error: la edad mínima para solicitar hipoteca inversa es de 65 años."
-        )
+    
 
     def test_error_porcentaje_mayor_100(self):
         # Debe retornar error si el porcentaje supera el 100%.
-        resultado = logica_calculohipoteca.calcular_credito(
+        with self.assertRaises( logica_calculohipoteca_comentado.Eror_porcentaje):
+         logica_calculohipoteca_comentado.calcular_credito(
             350_000_000, 7, 25, 120, 70
         )
 
-        self.assertEqual(
-            resultado,
-            "Error: el porcentaje financiado debe ser entre 0 y 100."
-        )
+        
 
     def test_error_porcentaje_negativo(self):
         # Debe retornar error si el porcentaje es negativo.
-        resultado = logica_calculohipoteca.calcular_credito(
+        with self.assertRaises( logica_calculohipoteca_comentado.Eror_porcentaje):
+            logica_calculohipoteca_comentado.calcular_credito(
             280_000_000, 8, 20, -30, 72
         )
 
-        self.assertEqual(
-            resultado,
-            "Error: el porcentaje financiado debe ser entre 0 y 100."
-        )
+       
 
     def test_error_tasa_negativa(self):
         # Debe retornar error si la tasa es menor o igual a 0.
-        resultado = logica_calculohipoteca.calcular_credito(
+        with self.assertRaises(logica_calculohipoteca_comentado.Error_tasa_negativa):
+            logica_calculohipoteca_comentado.calcular_credito(
             400_000_000, -5, 20, 40, 75
         )
 
-        self.assertEqual(
-            resultado,
-            "Error: la tasa de interés debe ser mayor a 0."
-        )
-
+        
 
 if __name__ == '__main__':
     unittest.main()

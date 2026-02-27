@@ -1,5 +1,5 @@
-import logica_calculohipoteca
-import test_calculadora_hipoteca
+import logica_calculohipoteca_comentado
+import test_calculadora_hipoteca_comentado
 
 
 valor_inmueble = int(input("Ingrese el valor del inmueble: "))
@@ -12,7 +12,7 @@ porcentaje_financiado = float(input(" ingrese el porcentaje financiado: "))
 
 edad = int(input("Ingrese su edad: "))
 
-cuota_mensual, total_acumulado, saldo_proyectado = logica_calculohipoteca.calcular_credito(
+cuota_mensual, total_acumulado, saldo_proyectado = logica_calculohipoteca_comentado.calcular_credito(
     valor_inmueble, tasa_anual, plazo_anios, porcentaje_financiado, edad
 )
 
