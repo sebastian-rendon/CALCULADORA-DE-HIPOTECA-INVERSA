@@ -147,4 +147,4 @@ En productos reales de hipoteca inversa, el porcentaje prestable suele oscilar a
 El uso de un LTV inferior al 100% no es una limitación del modelo, sino una condición necesaria para que el producto financiero sea viable y sostenible. Por esta razón, el simulador implementado utiliza porcentajes moderados que reflejan escenarios realistas del mercado.
 
 ---
-# Instrucciones Para ejecutar el programa necesidad de usar el Visual Studio Code
+# Instrucciones Para ejecutar el programa sin necesidad de usar el Visual Studio Code
