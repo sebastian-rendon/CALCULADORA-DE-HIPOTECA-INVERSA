@@ -148,3 +148,13 @@ El uso de un LTV inferior al 100% no es una limitación del modelo, sino una con
 
 ---
 # Instrucciones Para ejecutar el programa sin necesidad de usar el Visual Studio Code
+
+Para ejecutar el programa en Windows, primero es necesario clonar el repositorio en tu computadora. Puedes hacerlo abriendo una terminal (como CMD, PowerShell o Git Bash) y ejecutando el comando correspondiente para clonar el repositorio. Una vez finalizado este proceso, se descargará una carpeta que contiene todos los archivos del proyecto.
+
+Después, debes ubicarte dentro de la carpeta del proyecto. Una forma sencilla de hacerlo es haciendo clic derecho dentro de la carpeta y seleccionando la opción “Abrir en Terminal”, lo que abrirá automáticamente la terminal en la ubicación correcta.
+
+Con la terminal abierta en la carpeta del proyecto, el siguiente paso es ejecutar el programa. Para ello, debes ingresar el comando py src/view/consola_hipoteca_inversa.py y presionar Enter. Esto iniciará la consola interactiva del programa.
+
+Una vez que el programa esté en ejecución, comenzará a solicitar diferentes datos. Solo debes seguir las instrucciones que aparecen en pantalla, ingresar la información requerida y presionar Enter después de cada dato. El programa te permitirá interactuar con distintas opciones y probar diferentes valores según lo necesites.
+
+Como recomendación final, asegúrate de tener Python correctamente instalado y configurado en tu sistema, de modo que el comando py funcione sin inconvenientes.
