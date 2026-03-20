@@ -1,74 +1,121 @@
+min_edad = 65
+min_LTV = 0
+max_LTV = 1
+min_tasa_capitalizacion = 0
+min_plazo_simulacion = 0
+min_valor_inmueble = 0 
+
 class ErrorEdad(Exception):
-    """Se usa cuando la edad es menor a la edad mínima requerida."""
-    pass
+
+
+    def __init__(self, edad):
+        super().__init__(f"tu edad {edad} no permite solicitar la hipoteca inversa. La edad mínima para solicitar la hipoteca inversa es de {min_edad} años")
+    
+    
 
 
 class ErrorPorcentaje(Exception):
-    """Se usa cuando el porcentaje LTV está fuera del rango permitido (0 a 100)."""
-    pass
+   
+   def __init__(self, porcetaje_LTV):
+        super().__init__(f"El porcetaje LTV que ingresaste {porcetaje_LTV} debe estar entre {min_LTV}% y {max_LTV}% ")
 
 
 class ErrorTasaNegativa(Exception):
-    """Se usa cuando la tasa de interés es menor o igual a cero."""
-    pass
+    
+    def __init__(self, tasa_capitalizacion):
+        super().__init__(f"La tasa de capitalizacion {tasa_capitalizacion}debe ser mayor a {min_tasa_capitalizacion}")
 
+    
 
 class ErrorPlazo(Exception):
-    """Se usa cuando el plazo de simulación es menor o igual a cero."""
-    pass
+
+    def __init__(self, plazo_simulacion):
+        super().__init__(f"El plazo que ingresaste {plazo_simulacion} debe ser mayor a {min_plazo_simulacion} ")
+
+class ErrorValorInmueble(Exception):
+
+    def __init__(self, valor_inmueble):
+        super().__init__(f"Ela valor del inmueble {valor_inmueble} debe ser mayor a {min_valor_inmueble}")
+        
+    
 
 
-def calcular_credito(valor_inmueble, tasa_capitalizacion, plazo_simulacion, porcentaje_LTV, edad):
-    """
-    Calcula los valores principales de una hipoteca inversa:
-    - Monto mensual recibido
-    - Total acumulado recibido
-    - Saldo proyectado al final del plazo
-    """
+class credito():
+    valor_inmueble : int
+    tasa_capitalizacion : float
+    plazo_simulacion : int
+    porcentaje_LTV : float
+    edad : int
+
+
+    def __init__(self,valor_inmueble, tasa_capitalizacion, plazo_simulacion, porcentaje_LTV, edad):
+        self.valor_inmueble = valor_inmueble
+        self.tasa_capitalizacion = tasa_capitalizacion / 100
+        self.plazo_simulacion = plazo_simulacion
+        self.porcentaje_LTV = porcentaje_LTV / 100
+        self.edad = edad
+
+class calculadora_hipoteca_inversa():   
+    
+   
 
     # =========================
     # VALIDACIONES
     # =========================
+    def validar_edad(edad):
+        if edad < min_edad:
+            raise ErrorEdad(edad)
+        
+    def validar_porcetanje_LTV_menor_0(porcentaje_LTV):
+        if porcentaje_LTV < min_LTV:
+            raise ErrorPorcentaje(porcentaje_LTV)
+    def validar_porcetanje_LTV_mayor_100(porcentaje_LTV):
+        if porcentaje_LTV > max_LTV:
+            raise ErrorPorcentaje(porcentaje_LTV)
 
-    if edad < 62:
-        raise ErrorEdad("La edad mínima para solicitar la hipoteca inversa es de 62 años.")
 
-    if porcentaje_LTV < 0 or porcentaje_LTV > 100:
-        raise ErrorPorcentaje("El porcentaje financiado debe estar entre 0 y 100.")
 
-    if tasa_capitalizacion <= 0:
-        raise ErrorTasaNegativa("La tasa de interés debe ser mayor a 0.")
+    def validar_tasa_capitalizacion(tasa_capitalizacion):
+        if tasa_capitalizacion <= min_tasa_capitalizacion:
+            raise ErrorTasaNegativa(tasa_capitalizacion)
+    
 
-    if plazo_simulacion <= 0:
-        raise ErrorPlazo("El plazo de simulación debe ser mayor a 0.")
+    def validar_plazo_simulacion (plazo_simulacion):
+        if plazo_simulacion <=  min_plazo_simulacion:
+            raise ErrorPlazo(plazo_simulacion)
+        
 
-    if valor_inmueble <= 0:
-        raise ValueError("El valor del inmueble debe ser mayor a 0.")
+    def validar_valor_inmueble(valor_inmueble):
+        if valor_inmueble <= min_valor_inmueble:
+            raise ErrorValorInmueble(valor_inmueble)
 
-    # =========================
-    # CONVERSIÓN A DECIMALES
-    # =========================
-
-    tasa_capitalizacion = tasa_capitalizacion / 100
-    porcentaje_LTV = porcentaje_LTV / 100
 
     # =========================
     # CÁLCULOS PRINCIPALES
     # =========================
 
-    monto_financiado = valor_inmueble * porcentaje_LTV
-    tasa_mensual = tasa_capitalizacion / 12
-    numero_pagos = plazo_simulacion * 12
+    def calcular_monto_mensual_recibido(credito : credito):
+        monto_financiado = credito.valor_inmueble * credito.porcentaje_LTV
+        tasa_mensual = credito.tasa_capitalizacion / 12
+        numero_pagos = credito.plazo_simulacion * 12
 
-    # Fórmula de anualidad
-    monto_mensual_recibido = (
-        tasa_mensual * monto_financiado
-        / (1 - (1 + tasa_mensual) ** (-numero_pagos))
-    )
 
-    total_recibido_acumulado = monto_mensual_recibido * numero_pagos
+        monto_mensual_recibido = (tasa_mensual * monto_financiado)/ (1 - (1 + tasa_mensual) ** (-numero_pagos))
+                                  
+        return monto_mensual_recibido
+    
+    def calcular_total_recibido_acumulado(credito : credito):
+        monto_mensual = calculadora_hipoteca_inversa.calcular_monto_mensual_recibido(credito)
+        numero_pagos = credito.plazo_simulacion * 12
+        
+        total_recibido_acumulado = monto_mensual * numero_pagos
+        return total_recibido_acumulado
 
-    # Interés compuesto anual
-    saldo_proyectado = monto_financiado * (1 + tasa_capitalizacion) ** plazo_simulacion
+    def calcular_saldo_proyectado(credito:credito):
+        monto_financiado = credito.valor_inmueble * credito.porcentaje_LTV
 
-    return monto_mensual_recibido, total_recibido_acumulado, saldo_proyectado
+        saldo_proyectado = monto_financiado * (1 + credito.tasa_capitalizacion) ** credito.plazo_simulacion
+
+        return saldo_proyectado
+
+    
