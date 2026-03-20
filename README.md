@@ -158,3 +158,24 @@ Con la terminal abierta en la carpeta del proyecto, el siguiente paso es ejecuta
 Una vez que el programa esté en ejecución, comenzará a solicitar diferentes datos. Solo debes seguir las instrucciones que aparecen en pantalla, ingresar la información requerida y presionar Enter después de cada dato. El programa te permitirá interactuar con distintas opciones y probar diferentes valores según lo necesites.
 
 Como recomendación final, asegúrate de tener Python correctamente instalado y configurado en tu sistema, de modo que el comando py funcione sin inconvenientes.
+
+## Estructura
+
+```
+CALCULADORA-DE-HIPOTECA-INVERSA/
+│
+├── src/
+│   └── model/
+│   │   └── logica_calculohipoteca_comentado.py
+│   │
+│   └── view/
+│       └── consola_hipoteca_inversa.py
+│
+├── test/
+│   └── test_calculadora_hipoteca_comentado.py
+│
+└── README.md
+
+```
+
+---
