@@ -169,7 +169,7 @@ Como recomendación final, asegúrate de tener Python correctamente instalado y 
 
 Desde la raíz del proyecto, ejecuta:
 
-``py test/test_calculadora_hipoteca_comentado.py``
+- ``py test/test_calculadora_hipoteca_comentado.py``
 
 En caso de que el sistema no reconozca el termino py, ingresar el siguiente comando: 
 - `python test/test_calculadora_hipoteca_comentado.py`
