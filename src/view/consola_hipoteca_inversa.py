@@ -29,4 +29,3 @@ print(f"El saldo proyectado es de: ${saldo_proyectado:.0f}")
 
 
 
-
