@@ -8,9 +8,13 @@ from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.popup import Popup
 
 class HipotecaInversaGUI(App):
     def build(self):
+
+        self.title = "Calculadora de Hipoteca Inversa"
+
         layout = GridLayout(cols=2)
         # Campos de entrada
         self.valor_vivienda_input = TextInput(hint_text="Valor de la vivienda")
@@ -55,6 +59,13 @@ class HipotecaInversaGUI(App):
 
 
         layout.add_widget(calcular_button)
+
+        layout.add_widget(Label(text=(
+        "Esta aplicacion le permite calcular la hipoteca inversa,\n"
+        "ingresando el valor de la vivienda, la tasa de interés anual, el plazo del crédito, el porcentaje\n"
+        "LTV y la edad del propietario. Al hacer clic en 'Calcular', se mostrarán la cuota mensual,\n"
+        "el total acumulado y el saldo proyectado.")))
+
         return layout
     
     def calcular(self, sender):
@@ -62,27 +73,76 @@ class HipotecaInversaGUI(App):
         # utilizando la lógica de la calculadora de hipoteca inversa. Luego, actualizar las 
         # etiquetas de resultado con los valores calculados.
 
-        print("Se realizaron los respectivos calculos")
+        try:
+            self.validar()
 
-        valor_inmueble = int(self.valor_vivienda_input.text)
-        tasa_capitalizacion = float(self.tasa_interes_input.text)
-        plazo_simulacion = int(self.plazo_input.text)
-        porcentaje_LTV = float(self.porcentaje_LTV_input.text)
-        edad = int(self.edad_input.text)
-        resultado = credito(valor_inmueble=valor_inmueble, tasa_capitalizacion=tasa_capitalizacion, plazo_simulacion=plazo_simulacion, porcentaje_LTV=porcentaje_LTV, edad=edad)
+            print("Se realizaron los respectivos calculos")
+
+            valor_inmueble = int(self.valor_vivienda_input.text)
+            tasa_capitalizacion = float(self.tasa_interes_input.text)
+            plazo_simulacion = int(self.plazo_input.text)
+            porcentaje_LTV = float(self.porcentaje_LTV_input.text)
+            edad = int(self.edad_input.text)
+            resultado = credito(valor_inmueble=valor_inmueble, tasa_capitalizacion=tasa_capitalizacion, plazo_simulacion=plazo_simulacion, porcentaje_LTV=porcentaje_LTV, edad=edad)
 
 
-        result_monto_mensual = calculadora_hipoteca_inversa.calcular_monto_mensual_recibido(resultado)
-        result_total_recibido = calculadora_hipoteca_inversa.calcular_total_recibido_acumulado(resultado)
-        result_saldo_proyectado = calculadora_hipoteca_inversa.calcular_saldo_proyectado(resultado)
+            result_monto_mensual = calculadora_hipoteca_inversa.calcular_monto_mensual_recibido(resultado)
+            result_total_recibido = calculadora_hipoteca_inversa.calcular_total_recibido_acumulado(resultado)
+            result_saldo_proyectado = calculadora_hipoteca_inversa.calcular_saldo_proyectado(resultado)
         
-        self.resultado_monto_mensual.text = f"${result_monto_mensual:.0f}"
-        self.resultado_total_acumulado.text = f"${result_total_recibido:.0f}"
-        self.resultado_saldo_proyectado.text = f"${result_saldo_proyectado:.0f}"
+            self.resultado_monto_mensual.text = f"${result_monto_mensual:.0f}"
+            self.resultado_total_acumulado.text = f"${result_total_recibido:.0f}"
+            self.resultado_saldo_proyectado.text = f"${result_saldo_proyectado:.0f}"
 
-        print(f"El monto mensual recibido es: {result_monto_mensual}")
-        print(f"El total recibido acumulado es: {result_total_recibido}")
-        print(f"El saldo proyectado es: {result_saldo_proyectado}")
+            print(f"El monto mensual recibido es: {result_monto_mensual}")
+            print(f"El total recibido acumulado es: {result_total_recibido}")
+            print(f"El saldo proyectado es: {result_saldo_proyectado}")
+
+        except Exception as e:
+            print("Ocurrió un error al realizar los cálculos. Por favor, revise los datos ingresados.")
+            self.mostrar_error( "Error al calcular la hipoteca inversa. \n" + str(e) + "\nPor favor, revise los datos ingresados.")
+            print(f"Error: {e}")
+
+    def mostrar_error(self, err):
+        """
+        Abre una ventana emergente, con un texto y un botón para cerrar
+        Parámetros:
+        err: Mensaje de error que queremos mostrar en la ventana
+        """
+
+        # contenido es el contenedor donde vamos a agregar los widgets de la ventana
+        contenido = GridLayout(cols=1)
+        # Creamos el Label que contiene el mensaje de error
+        contenido.add_widget(Label(text=str(err)))
+        # Creamos el botón para cerrar la ventana
+        cerrar = Button(text="Cerrar")
+        contenido.add_widget(cerrar)
+        # Creamos la ventana emergente con el widget Popup de Kivy
+        popup = Popup(title="Error", content=contenido)
+        # Conectamos el evento del botón con el método dismiss que cierra el popup
+        cerrar.bind(on_press=popup.dismiss)
+        # Mostramos la ventana emergente
+        popup.open()   
+    
+    def validar(self):
+        """
+        Verifica que todos los datos ingresados por el usuario sean correctos
+        """
+        if not self.valor_vivienda_input.text.isnumeric():
+            raise Exception("El valor de la vivienda debe ser un número válido")
+    
+        if not self.tasa_interes_input.text.isnumeric():
+            raise Exception("La tasa de interés debe ser un número válido, sin signo de porcentaje")
+    
+        if not self.plazo_input.text.isnumeric():
+            raise Exception("El plazo del crédito debe ser un número válido")
+        
+        if not self.porcentaje_LTV_input.text.isnumeric():
+            raise Exception("El porcentaje LTV debe ser un número válido")
+    
+        if not self.edad_input.text.isnumeric():
+            raise Exception("La edad del propietario debe ser un número válido")
+    
     
 if __name__ == '__main__':
     HipotecaInversaGUI().run()
