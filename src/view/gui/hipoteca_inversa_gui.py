@@ -44,15 +44,15 @@ class HipotecaInversaGUI(App):
         layout.add_widget(Label(text="Porcentaje LTV (%):"))
         layout.add_widget(self.porcentaje_LTV_input)
 
-
-        layout.add_widget(calcular_button)
+        layout.add_widget(Label(text="Cuota mensual:"))
         layout.add_widget(self.resultado_monto_mensual)
-        layout.add_widget(Label(text=""))
+        layout.add_widget(Label(text="Total acumulado:"))
         layout.add_widget(self.resultado_total_acumulado)
-        layout.add_widget(Label(text=""))
+        layout.add_widget(Label(text="Saldo proyectado:"))
         layout.add_widget(self.resultado_saldo_proyectado)
 
 
+        layout.add_widget(calcular_button)
         return layout
     
     def calcular(self, sender):
@@ -62,14 +62,14 @@ class HipotecaInversaGUI(App):
 
         monto_mensual = credito(300_000_000, 8, 20, 40, 70)
 
-        
+
         result_monto_mensual = calculadora_hipoteca_inversa.calcular_monto_mensual_recibido(monto_mensual)
         result_total_recibido = calculadora_hipoteca_inversa.calcular_total_recibido_acumulado(monto_mensual)
         result_saldo_proyectado = calculadora_hipoteca_inversa.calcular_saldo_proyectado(monto_mensual)
         
-        self.resultado_monto_mensual.text = f"La cuota mensual es: ${result_monto_mensual:.0f}"
-        self.resultado_total_acumulado.text = f"El total acumulado es: ${result_total_recibido:.0f}"
-        self.resultado_saldo_proyectado.text = f"El saldo proyectado es: ${result_saldo_proyectado:.0f}"
+        self.resultado_monto_mensual.text = f"${result_monto_mensual:.2f}"
+        self.resultado_total_acumulado.text = f"${result_total_recibido:.2f}"
+        self.resultado_saldo_proyectado.text = f"${result_saldo_proyectado:.2f}"
 
         print(f"El monto mensual recibido es: {result_monto_mensual}")
         print(f"El total recibido acumulado es: {result_total_recibido}")
