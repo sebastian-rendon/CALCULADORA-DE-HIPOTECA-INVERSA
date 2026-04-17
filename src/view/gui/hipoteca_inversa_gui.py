@@ -38,11 +38,13 @@ class HipotecaInversaGUI(App):
         layout.add_widget(Label(text="Plazo del crédito (años):"))
         layout.add_widget(self.plazo_input)
 
+        layout.add_widget(Label(text="Porcentaje LTV (%):"))
+        layout.add_widget(self.porcentaje_LTV_input)
+
         layout.add_widget(Label(text="Edad del propietario:"))
         layout.add_widget(self.edad_input)
 
-        layout.add_widget(Label(text="Porcentaje LTV (%):"))
-        layout.add_widget(self.porcentaje_LTV_input)
+        
 
         layout.add_widget(Label(text="Cuota mensual:"))
         layout.add_widget(self.resultado_monto_mensual)
