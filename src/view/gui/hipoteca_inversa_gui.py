@@ -22,7 +22,12 @@ class HipotecaInversaGUI(App):
         calcular_button = Button(text="Calcular")
         calcular_button.bind(on_press=self.calcular)
 
-        self.resultado_label = Label(text="El resultado aparecerá aquí")
+
+        self.resultado_monto_mensual = Label(text="La cuota mensual aparecerá aquí")
+
+        self.resultado_total_acumulado = Label(text="El total acumulado aparecerá aquí")
+
+        self.resultado_saldo_proyectado = Label(text="El saldo proyectado aparecerá aquí")
 
         layout.add_widget(Label(text="Valor de la vivienda:"))
         layout.add_widget(self.valor_vivienda_input)
@@ -38,13 +43,37 @@ class HipotecaInversaGUI(App):
 
         layout.add_widget(Label(text="Porcentaje LTV (%):"))
         layout.add_widget(self.porcentaje_LTV_input)
-        
+
+
         layout.add_widget(calcular_button)
+        layout.add_widget(self.resultado_monto_mensual)
+        layout.add_widget(Label(text=""))
+        layout.add_widget(self.resultado_total_acumulado)
+        layout.add_widget(Label(text=""))
+        layout.add_widget(self.resultado_saldo_proyectado)
+
 
         return layout
     
     def calcular(self, sender):
-        pass
+        #
+        #
+        print("Se realizaron los respectivos calculos")
+
+        monto_mensual = credito(300_000_000, 8, 20, 40, 70)
+
+        
+        result_monto_mensual = calculadora_hipoteca_inversa.calcular_monto_mensual_recibido(monto_mensual)
+        result_total_recibido = calculadora_hipoteca_inversa.calcular_total_recibido_acumulado(monto_mensual)
+        result_saldo_proyectado = calculadora_hipoteca_inversa.calcular_saldo_proyectado(monto_mensual)
+        
+        self.resultado_monto_mensual.text = f"La cuota mensual es: ${result_monto_mensual:.0f}"
+        self.resultado_total_acumulado.text = f"El total acumulado es: ${result_total_recibido:.0f}"
+        self.resultado_saldo_proyectado.text = f"El saldo proyectado es: ${result_saldo_proyectado:.0f}"
+
+        print(f"El monto mensual recibido es: {result_monto_mensual}")
+        print(f"El total recibido acumulado es: {result_total_recibido}")
+        print(f"El saldo proyectado es: {result_saldo_proyectado}")
     
 if __name__ == '__main__':
     HipotecaInversaGUI().run()
