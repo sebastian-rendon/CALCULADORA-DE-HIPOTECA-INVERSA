@@ -23,11 +23,11 @@ class HipotecaInversaGUI(App):
         calcular_button.bind(on_press=self.calcular)
 
 
-        self.resultado_monto_mensual = Label(text="La cuota mensual aparecerá aquí")
+        self.resultado_monto_mensual = Label(text="La cuota mensual aparecerá aquí", color=(0, 1, 0, 1))
 
-        self.resultado_total_acumulado = Label(text="El total acumulado aparecerá aquí")
+        self.resultado_total_acumulado = Label(text="El total acumulado aparecerá aquí", color=(0, 1, 0, 1))
 
-        self.resultado_saldo_proyectado = Label(text="El saldo proyectado aparecerá aquí")
+        self.resultado_saldo_proyectado = Label(text="El saldo proyectado aparecerá aquí", color=(0, 1, 0, 1))
 
         layout.add_widget(Label(text="Valor de la vivienda:"))
         layout.add_widget(self.valor_vivienda_input)
