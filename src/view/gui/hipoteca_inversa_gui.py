@@ -56,20 +56,27 @@ class HipotecaInversaGUI(App):
         return layout
     
     def calcular(self, sender):
-        #
-        #
+        # Obtener los datos ingresados por el usuario y realizar los cálculos correspondientes
+        # utilizando la lógica de la calculadora de hipoteca inversa. Luego, actualizar las 
+        # etiquetas de resultado con los valores calculados.
+
         print("Se realizaron los respectivos calculos")
 
-        monto_mensual = credito(300_000_000, 8, 20, 40, 70)
+        valor_inmueble = int(self.valor_vivienda_input.text)
+        tasa_capitalizacion = float(self.tasa_interes_input.text)
+        plazo_simulacion = int(self.plazo_input.text)
+        porcentaje_LTV = float(self.porcentaje_LTV_input.text)
+        edad = int(self.edad_input.text)
+        resultado = credito(valor_inmueble=valor_inmueble, tasa_capitalizacion=tasa_capitalizacion, plazo_simulacion=plazo_simulacion, porcentaje_LTV=porcentaje_LTV, edad=edad)
 
 
-        result_monto_mensual = calculadora_hipoteca_inversa.calcular_monto_mensual_recibido(monto_mensual)
-        result_total_recibido = calculadora_hipoteca_inversa.calcular_total_recibido_acumulado(monto_mensual)
-        result_saldo_proyectado = calculadora_hipoteca_inversa.calcular_saldo_proyectado(monto_mensual)
+        result_monto_mensual = calculadora_hipoteca_inversa.calcular_monto_mensual_recibido(resultado)
+        result_total_recibido = calculadora_hipoteca_inversa.calcular_total_recibido_acumulado(resultado)
+        result_saldo_proyectado = calculadora_hipoteca_inversa.calcular_saldo_proyectado(resultado)
         
-        self.resultado_monto_mensual.text = f"${result_monto_mensual:.2f}"
-        self.resultado_total_acumulado.text = f"${result_total_recibido:.2f}"
-        self.resultado_saldo_proyectado.text = f"${result_saldo_proyectado:.2f}"
+        self.resultado_monto_mensual.text = f"${result_monto_mensual:.0f}"
+        self.resultado_total_acumulado.text = f"${result_total_recibido:.0f}"
+        self.resultado_saldo_proyectado.text = f"${result_saldo_proyectado:.0f}"
 
         print(f"El monto mensual recibido es: {result_monto_mensual}")
         print(f"El total recibido acumulado es: {result_total_recibido}")
