@@ -129,20 +129,20 @@ class HipotecaInversaGUI(App):
         Verifica que todos los datos ingresados por el usuario sean correctos
         """
         if not self.valor_vivienda_input.text.isnumeric():
-            raise Exception("El valor de la vivienda debe ser un número válido")
+            raise Exception("El valor de la vivienda debe ser un número válido, no se permiten caracteres especiales ni letras")
     
         if not self.tasa_interes_input.text.isnumeric():
-            raise Exception("La tasa de interés debe ser un número válido, sin signo de porcentaje")
+            raise Exception("La tasa de interés debe ser un número válido, sin signo de porcentaje, no se permiten caracteres especiales ni letras.")
     
         if not self.plazo_input.text.isnumeric():
-            raise Exception("El plazo del crédito debe ser un número válido")
+            raise Exception("El plazo del crédito debe ser un número válido, no se permiten caracteres especiales ni letras.")
         
         if not self.porcentaje_LTV_input.text.isnumeric():
-            raise Exception("El porcentaje LTV debe ser un número válido")
+            raise Exception("El porcentaje LTV debe ser un número válido, no se permiten caracteres especiales ni letras.")
     
         if not self.edad_input.text.isnumeric():
-            raise Exception("La edad del propietario debe ser un número válido")
-    
-    
+            raise Exception("La edad del propietario debe ser un número válido, no se permiten caracteres especiales ni letras.")
+
+
 if __name__ == '__main__':
     HipotecaInversaGUI().run()
