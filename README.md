@@ -1,7 +1,7 @@
 # CALCULADORA-DE-HIPOTECA-INVERSA
 Sus colaboradores son: EMANUELA BENTANCUR E ISABELLA QUINTERO GUTIERREZ, clase de codigo limpio grupo 64
 
-Los encargados de hacer la interfaz de usuario son: SEBASTIAN RENDON y CESAR VELASQUEZ, codigo limpio grupo 64
+Los encargados de hacer la interfaz son: SEBASTIAN RENDON y CESAR VELASQUEZ, codigo limpio grupo 64
 
 
 # Proyecto — Simulador de Hipoteca Inversa
@@ -197,6 +197,7 @@ CALCULADORA-DE-HIPOTECA-INVERSA/
 └── README.md
 
 ```
+---
 ## Instrucciones para ejecutar la interfaz gráfica (GUI)
 
 ### Requisitos
