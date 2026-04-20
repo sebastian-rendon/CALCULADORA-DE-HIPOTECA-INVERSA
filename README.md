@@ -1,6 +1,8 @@
 # CALCULADORA-DE-HIPOTECA-INVERSA
 Sus colaboradores son: EMANUELA BENTANCUR E ISABELLA QUINTERO GUTIERREZ, clase de codigo limpio grupo 64
 
+Los encargados de hacer la interfaz de usuario son: SEBASTIAN RENDON y CESAR VELASQUEZ, codigo limpio grupo 64
+
 
 # Proyecto — Simulador de Hipoteca Inversa
 
@@ -195,5 +197,27 @@ CALCULADORA-DE-HIPOTECA-INVERSA/
 └── README.md
 
 ```
+## Instrucciones para ejecutar la interfaz gráfica (GUI)
 
----
+### Requisitos
+- Python 3.x
+- Kivy
+
+### Instalación de dependencias
+```bash
+pip install kivy
+```
+
+### Ejecución
+Abre la terminal en la carpeta raíz del proyecto. Puedes verificar que estás en la carpeta correcta porque la terminal muestra:
+
+" PS C:...\CALCULADORA-DE-HIPOTECA-INVERSA> "
+
+Si no estás ahí, navega con:
+```bash
+cd CALCULADORA-DE-HIPOTECA-INVERSA
+```
+Luego ejecuta:
+```bash
+python src/view/gui/hipoteca_inversa_gui.py
+```
