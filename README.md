@@ -212,7 +212,9 @@ pip install kivy
 ### Ejecución
 Abre la terminal en la carpeta raíz del proyecto. Puedes verificar que estás en la carpeta correcta porque la terminal muestra:
 
+```bash
 " PS C:...\CALCULADORA-DE-HIPOTECA-INVERSA> "
+```
 
 Si no estás ahí, navega con:
 ```bash
