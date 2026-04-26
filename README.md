@@ -189,7 +189,10 @@ CALCULADORA-DE-HIPOTECA-INVERSA/
 │   │   └── logica_calculohipoteca_comentado.py
 │   │
 │   └── view/
-│       └── consola_hipoteca_inversa.py
+│       ├── consola_hipoteca_inversa.py
+│       └── gui/
+│           ├── hipoteca_inversa_gui.py
+│           └── grafica_gui.py
 │
 ├── test/
 │   └── test_calculadora_hipoteca_comentado.py
@@ -208,7 +211,9 @@ CALCULADORA-DE-HIPOTECA-INVERSA/
 ```bash
 pip install kivy
 ```
-
+```bash
+pip install matplotlib
+```
 ### Ejecución
 Abre la terminal en la carpeta raíz del proyecto. Puedes verificar que estás en la carpeta correcta porque la terminal muestra:
 
