@@ -2,6 +2,8 @@ import sys
 sys.path.append("src")
 from model.logica_calculohipoteca_comentado import credito, calculadora_hipoteca_inversa
 
+from view.gui.grafica_gui import mostrar_grafica
+
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
@@ -25,6 +27,9 @@ class HipotecaInversaGUI(App):
 
         calcular_button = Button(text="Calcular")
         calcular_button.bind(on_press=self.calcular)
+
+        grafica_button = Button(text='Ver gráfica')
+        grafica_button.bind(on_press=self.ver_grafica)
 
 
         self.resultado_monto_mensual = Label(text="La cuota mensual aparecerá aquí", color=(0, 1, 0, 1))
@@ -60,11 +65,17 @@ class HipotecaInversaGUI(App):
 
         layout.add_widget(calcular_button)
 
-        layout.add_widget(Label(text=(
+        descripcion = Label(text=(
         "Esta aplicacion le permite calcular la hipoteca inversa,\n"
         "ingresando el valor de la vivienda, la tasa de interés anual, el plazo del crédito, el porcentaje\n"
         "LTV y la edad del propietario. Al hacer clic en 'Calcular', se mostrarán la cuota mensual,\n"
-        "el total acumulado y el saldo proyectado.")))
+        "el total acumulado y el saldo proyectado."), size_hint_y=2, size_hint_x=2, text_size=(400, None),halign='left')
+
+
+        layout.add_widget(descripcion)
+        layout.add_widget(grafica_button)   
+        layout.add_widget(Label(text=""))
+
 
         return layout
     
@@ -142,6 +153,20 @@ class HipotecaInversaGUI(App):
     
         if not self.edad_input.text.isnumeric():
             raise Exception("La edad del propietario debe ser un número válido, no se permiten caracteres especiales ni letras.")
+
+    def ver_grafica(self, sender):
+        try:
+            self.validar()
+            valor_inmueble = int(self.valor_vivienda_input.text)
+            tasa_capitalizacion = float(self.tasa_interes_input.text)
+            plazo_simulacion = int(self.plazo_input.text)
+            porcentaje_LTV = float(self.porcentaje_LTV_input.text)
+            edad = int(self.edad_input.text)
+            resultado = credito(valor_inmueble=valor_inmueble, tasa_capitalizacion=tasa_capitalizacion, 
+                           plazo_simulacion=plazo_simulacion, porcentaje_LTV=porcentaje_LTV, edad=edad)
+            mostrar_grafica(resultado)
+        except Exception as e:
+            self.mostrar_error(str(e))
 
 
 if __name__ == '__main__':
